@@ -2,6 +2,7 @@
 // =============================================================
 const express = require("express");
 const path = require("path");
+const path = require("fs");
 
 // Sets up the Express App
 // =============================================================
@@ -23,10 +24,18 @@ app.get("*", (req, res) => {
   });
 
 app.get("/notes", (req, res) => {
-res.sendFile(path.join(__dirname, "public//notes.html"));
+res.sendFile(path.join(__dirname, "public/notes.html"));
 });
 
-
+// Displays all notes
+app.get("/api/notes", (req, res) => {
+    fs.readFile(__dirname, "db/db.json", "utf8", function(error, data) {
+        if (error) {
+          return console.log(error);
+        }
+        return res.json(data);
+      });
+  });
 
 
 
