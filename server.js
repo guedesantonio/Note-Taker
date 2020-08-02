@@ -14,6 +14,9 @@ const PORT = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//This line is used to add folders that contain static files like CSS and Javascript so they could be used inside the server
+app.use(express.static(path.join(__dirname, './public')));
+
 // Routes
 // =============================================================
 
