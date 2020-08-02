@@ -3,7 +3,7 @@
 const express = require("express");
 const path = require("path");
 const path = require("fs");
-
+let notesData = require("./db/db.json");
 // Sets up the Express App
 // =============================================================
 const app = express();
@@ -35,6 +35,33 @@ app.get("/api/notes", (req, res) => {
       });
   });
 
+app.post("/api/notes", (req, res) => {
+    const newNote = req.body;
+    console.log(notesData);
+    notesData.push(newNote);
+    fs.writeFile(__dirname,'./db/db.json', JSON.stringify(notesData), function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+    });
+    res.json(newNote);
+});
+
+app.delete("/api/notes/:id", (req, res) => {
+    const uniqueId = req.params.id;
+    fs.readFile(__dirname,'./db/db.json', 'utf8', function (err, data) {
+        notesData = JSON.parse(data);
+        for (let i = 0; i < notesData.length; i++) {
+            if (notesData[i].id === uniqueId) {
+                notesData.splice(i, 1);
+                fs.writeFile('./db/db.json', JSON.stringify(notesData), function (err) {
+                    if (err) throw err;
+                    res.send(notesData);
+                });
+            }
+        }
+
+    });
+});
 
 
 // Starts the server to begin listening
