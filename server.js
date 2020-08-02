@@ -30,7 +30,7 @@ res.sendFile(path.join(__dirname, "./public/notes.html"));
 
 // Api routes
 app.get("/api/notes", (req, res) => {
-    fs.readFile(__dirname, "./db/db.json", "utf8", function(error, data) {
+    fs.readFile( "./db/db.json", "utf8", function(error, data) {
         if (error) {
           return console.log(error);
         }
@@ -42,7 +42,7 @@ app.post("/api/notes", (req, res) => {
     const newNote = req.body;
     console.log(notesData);
     notesData.push(newNote);
-    fs.writeFile(__dirname,'./db/db.json', JSON.stringify(notesData), function (err) {
+    fs.writeFile('./db/db.json', JSON.stringify(notesData), function (err) {
         if (err) throw err;
         console.log('Saved!');
     });
@@ -51,7 +51,7 @@ app.post("/api/notes", (req, res) => {
 
 app.delete("/api/notes/:id", (req, res) => {
     const uniqueId = req.params.id;
-    fs.readFile(__dirname,'./db/db.json', 'utf8', function (err, data) {
+    fs.readFile('./db/db.json', 'utf8', function (err, data) {
         notesData = JSON.parse(data);
         for (let i = 0; i < notesData.length; i++) {
             if (notesData[i].id === uniqueId) {
