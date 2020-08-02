@@ -50,11 +50,11 @@ app.post("/api/notes", (req, res) => {
 });
 
 app.delete("/api/notes/:id", (req, res) => {
-    const uniqueId = req.params.id;
+    const chosen = req.params.id;
     fs.readFile('./db/db.json', 'utf8', function (err, data) {
         notesData = JSON.parse(data);
         for (let i = 0; i < notesData.length; i++) {
-            if (notesData[i].id === uniqueId) {
+            if (notesData[i].id === chosen) {
                 notesData.splice(i, 1);
                 fs.writeFile('./db/db.json', JSON.stringify(notesData), function (err) {
                     if (err) throw err;
