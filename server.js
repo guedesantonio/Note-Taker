@@ -2,7 +2,7 @@
 // =============================================================
 const express = require("express");
 const path = require("path");
-const path = require("fs");
+const fs = require("fs");
 let notesData = require("./db/db.json");
 // Sets up the Express App
 // =============================================================
