@@ -4,6 +4,8 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const notesData = require("./db/db.json");
+const { v4: uuidv4 } = require('uuid');
+
 // Sets up the Express App
 // =============================================================
 const app = express();
@@ -31,6 +33,7 @@ app.get("/api/notes", (req, res) => {
 
 app.post("/api/notes", (req, res) => {
     const newNote = req.body;
+    newNote.id = uuidv4();
     console.log(notesData);
     notesData.push(newNote);
     fs.writeFile('./db/db.json', JSON.stringify(notesData), function (err) {
