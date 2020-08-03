@@ -3,7 +3,6 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const notesData = require("./db/db.json");
 const { v4: uuidv4 } = require('uuid');
 
 // Sets up the Express App
@@ -32,15 +31,18 @@ app.get("/api/notes", (req, res) => {
 });
 
 app.post("/api/notes", (req, res) => {
+    fs.readFile('./db/db.json', 'utf8', function (err, data) {
+    let notes = JSON.parse(data);
     const newNote = req.body;
     newNote.id = uuidv4();
-    console.log(notesData);
-    notesData.push(newNote);
-    fs.writeFile('./db/db.json', JSON.stringify(notesData), function (err) {
+    console.log(notes);
+    notes.push(newNote);
+    fs.writeFile('./db/db.json', JSON.stringify(notes), function (err) {
         if (err) throw err;
         console.log('Saved!');
     });
     res.json(newNote);
+})
 });
 
 app.delete("/api/notes/:id", (req, res) => {
