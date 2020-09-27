@@ -4,7 +4,7 @@
 ![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)
 
   ## Description
-  An responsive HTML webpage that displays an application that can be used to write, save, and delete notes. This application will use an express backend and save and retrieve note data from a JSON file.
+  A responsive HTML webpage that displays an application that can be used to write, save, and delete notes. This application will use an express backend and save and retrieve note data from a JSON file.
 
   
   ## Table of contents
